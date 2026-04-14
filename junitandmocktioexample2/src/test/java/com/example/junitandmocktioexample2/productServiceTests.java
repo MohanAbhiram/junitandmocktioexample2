@@ -52,6 +52,7 @@ public class productServiceTests {
         System.out.println("In test method");
         Assertions.assertEquals(savedProduct, product);
     }
+    //testing excpetions
     @Test
     void addProductShouldThrowExceptionForInvalidProductName() {
         Product product = new Product();
@@ -64,12 +65,15 @@ public class productServiceTests {
         Assertions.assertEquals("Product name is invalid", runtimeException.getMessage());
     }
 
+    //testing using doNothing()
     @Test
     void deleteProductMustDeleteProductSuccessfully() {
         doNothing().when(productRepository).deleteById(1);
         productService.deleteProductById(1);
         verify(productRepository,times(1)).deleteById(1);
     }
+    
+    //testing private methods using reflections
     @Test
     void testPrivateMethodValidateProductNameSuccessfully() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method validateProductName = productService.getClass().getDeclaredMethod("validateProductName", String.class);
